@@ -1,0 +1,142 @@
+nama :oktafira anandiya 
+nim  : 1515015123
+kelas: c'2015 
+
+DOMAINS							// mendeklarasikan domain dari argumen atau inisiasi 
+nama,jender,pekerjaan,benda,alasan,zat = symbol 	// dimana nama,jender,pekerjaan,benda,alasan,zat diinisiasi dengan symbol
+umur=integer						// umur diinisiasikan dengan integer
+
+PREDICATES						//mendeklarasikan predikat atau argumen, dimulai dari nama predikat diikuti tanda kurung buka, kemudian diikuti nol atau lebih argumen dari predikat  
+nondeterm orang(nama, umur, jender, pekerjaan)		//mendeklarasikan orang dengan aritas jamak(lebih dari satu) parameter yang berisi 4 input 
+nondeterm selingkuh(nama, nama)				//medeklarasiakan selingkuh masuk dalam aritas jamak yaitu (nama,nama) dan memiliki parameter yang berisi 2 input
+	terbunuh_dengan(nama, benda)			//mendeklarasikan terbunuh_dengan masuk kedalam aritas jamak yaitu(nama,benda) yang memiliki parameter yang berisi 2 input
+	terbunuh(nama)					//mendeklarasikan terbunuh dengan aritas tunggal (nama) 
+nondeterm pembunuh(nama)				//mendeklarasikan pembubuh dengan aritas tunggal (nama)
+	motif(alasan)					//mendeklarasikan motif dengan aritas tunggal (alasan)
+	ternodai(nama, zat)				//mendeklarasikan ternodai dengan aritas jamak yaitu (nama,zat) yang memiliki parameter yang berisi 2 input
+	milik(nama, benda)				//mendeklarasikan milik denngan aritas jamak yaitu(nama,benda) yang memiliki parameter yang berisi 2 input 
+nondeterm cara_kerja_mirip(benda, benda)		//mendeklarasikan cara_kerja_mirip dengan aritas jamak(benda,benda) yang memiliki parameter yang berisi 2 input
+nondeterm kemungkinan_milik(nama, benda)		%mendeklarasikan kemungkinan_milik dengan aritas jamak(nama,benda) yang memmiliki parameter yang berisi 2 input
+nondeterm dicurigai(nama)				%mendeklarasikan dicurigai dengan aritas tunggal(nama) 
+
+/* * * Fakta-fakta tentang pembunuhan * * */
+CLAUSES							%fakta-fakta yang ada
+orang(budi,55,m,tukang_kayu).				%budi adalah orang berumur 55 berjender male pekerjaan tukang_kayu
+orang(aldi,25,m,pemain_sepak_bola).			%aldi adalah orang berumur 25 berjender male pekerjaan pemain_sepak_bola
+orang(aldi,25,m,tukang_jagal).				%aldi adalah orang berumur 25 berjender male pekerjaan tukang_jagal
+orang(joni,25,m,pencopet).				%joni adalah orang berumur 25 berjender male pekerjaan pencopet
+
+selingkuh(ina,joni).					%ina selingkuh dengan joni
+selingkuh(ina,budi).					%ina selingkuh dengan budi
+selingkuh(siti,joni).					%siti selingkuh dengan joni
+
+terbunuh_dengan(siti,pentungan).			%siti terbunuh_dengan pentungan , dimana terbunuh_dengan(nama,benda)	
+terbunuh(siti).						%siti terbunuh
+
+motif(uang).						%uang motif , dimana motif(alasan) sama dengan uang adalah motif pembunuhan
+motif(cemburu).						%cemburu motif , dimana motif(alasan) sama dengan cemburu adalah motif pembunuhan
+motif(dendam).						%dendam motif , dimana motif(alasan) sama dengan dendam adalah motif pembunuhan 
+
+ternodai(budi, darah).					%budi ternodai darah , dimana ternodai(nama,zat) sama dengan budi=nama | zat=darah
+ternodai(siti, darah).					%siti ternodai darah , dimana ternodai(nama,zat) sama dengan siti=nama | zat=darah
+ternodai(aldi, lumpur).					%aldi ternodai lumpur , dimana ternodai(nama,zat) sama dengan aldi=nama | zat=lumpur
+ternodai(joni, coklat).					%joni ternodai coklat , dimana ternodai(nama,zat) sama dengan joni=nama | zat=coklat
+ternodai(ina, coklat).					%ina ternodai coklat , dimana ternodai(nama,zat) sama dengan ina=nama | zat=coklat
+
+milik(budi,kaki_palsu).					%budi memiliki kaki_palsu , dimana milik(nama,benda) 
+milik(joni,pistol).					%joni memiliki pistol , dimana milik(nama,benda) 
+
+/* * * Basis Pengetahuan * * */
+cara_kerja_mirip(kaki_palsu, pentungan).		%kaki_palsu cara_kerja_mirip dengan pentungan , dimana cara_kerja_mirip(benda,benda)
+cara_kerja_mirip(balok, pentungan).			%balok cara_kerja_mirip pentungan , dimana cara_kerja_mirip(benda,benda)
+cara_kerja_mirip(gunting, pisau).			%gunting cara_kerja_mirip pisau , dimana cara_kerja_mirip(benda,benda)
+cara_kerja_mirip(sepatu_bola, pentungan).		%sepatu_bola cara_kerja_mirip pentungan , dimana cara_kerja_mirip(benda,benda)
+
+kemungkinan_milik(X,sepatu_bola):-			%kemungkinan_milik(nama,benda) dimana X kemungkinan_milik sepatu bola jika
+	orang(X,_,_,pemain_sepak_bola).			%orang(nama,umur,jender,pekerjaan) dimana X adalah orang yang mempunyai pekerjaan pemain_sepak_bola
+kemungkinan_milik(X,gunting):-				% kemungkinan_milik(nama,benda) dimana X kemungkinan_milik gunting jika
+	orang(X,_,_,pekerja_salon).			%orang(nama,umur,jender,pekerjaan) dimana X adalah orang yang mempunyai pekerjaan pekerja_salon
+kemungkinan_milik(X,Benda):-				%kemungkinan_milik(nama,benda) dimana X kemungkinan_milik Benda jika
+	milik(X,Benda).					%milik(nama,benda) maka X memiliki Benda
+
+/* * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+* dicurigai semua orang yang memiliki senjata yang *
+* kerjanya mirip dengan senjata penyebab siti terbunuh. *
+* * * * * * * * * * * * * * * * * * * * * * * * * * * * */
+dicurigai(X):-						%dicurigai(nama) dimana X dicurigai jika
+	terbunuh_dengan(siti,Senjata),			%siti terbunuh_dengan Senjata dan
+	cara_kerja_mirip(Benda,Senjata) ,		%Benda cara_kerja_mirip Senjata dan 
+	kemungkinan_milik(X,Benda).			%X kemungkinan_milik Benda 
+
+/* * * * * * * * * * * * * * * * * * * * * * * * * *
+* dicurigai laki-laki yang selingkuh dengan siti. *
+* * * * * * * * * * * * * * * * * * * * * * * * * */
+dicurigai(X):-						%X dicurigai jika
+	motif(cemburu),					%cemburu motif pembunuhan dan 
+	orang(X,_,m,_),					%X adalah orang dan jender male dan 
+	selingkuh(siti,X).				%siti selingkuh dengan X
+
+/* * * * * * * * * * * * * * * * * * * * * * *
+* dicurigai perempuan yang selingkuh dengan *
+* laki-laki yang juga selingkuh dengan siti *
+* * * * * * * * * * * * * * * * * * * * * * */
+dicurigai(X):-						%X dicurigai jika
+	motif(cemburu),					%cemburu motif pembunuhan dan 
+	orang(X,_,f,_),					%X orang dengan jender female dan
+	selingkuh(X,Lakilaki),				%X selingkuh dengan Lakilaki dan
+	selingkuh(siti,Lakilaki).			%siti selingkuh dengan Lakilaki
+
+/* * * * * * * * * * * * * * * * * * * * * * * * * * *
+* dicurigai pencopet yang mempunyai motif uang. *
+* * * * * * * * * * * * * * * * * * * * * * * * * * */
+dicurigai(X):-						%X dicurigai jika
+	motif(uang),					%uang motif pembunuhan dan 
+	orang(X,_,_,pencopet).				% X adalah orang pekerjaan pencopet
+pembunuh(Pembunuh):-					%Pembunuh adalah pembunuh jika
+	orang(Pembunuh,_,_,_),				%Pembunuh adalah orang dan 
+	terbunuh(Terbunuh),				%Terbunuh juga terbunuh dan 
+	Terbunuh <> Pembunuh, /* Bukan bunuh diri */	%Terbunuh tidak sama dengan Pembunuh dan 
+	dicurigai(Pembunuh),				%Pembunuh dicurigai dan 
+	ternodai(Pembunuh,Zat),				%Pembunuh ternodai zat dan 
+	ternodai(Terbunuh,Zat).				%Terbunuh ternodai zat
+
+GOAL							%tujuan akhirnya solusinya
+pembunuh(X).						%X adalah pembunuh 
+
+maka kita lakukan pencocokan dahulu 
+pembunuh(nama)
+dimana nama masuk kedlam predikat orang(nama,umur,jender,pekerjaan) maka pembunuh adalah orang
+kemudian masuk ke aturan yang ada dimana
+X kemungkinan_milik sepatu_bola, 
+X orang merupakan pemain_bola == aldi 
+X kemungkinan_miliki gunting jika
+X orang pekerjaan salon == tidak cocok
+X kemungkinan_milik Benda jika 
+X milik Benda 
+--------------
+kemudian 
+X dicurigai jika
+siti terbunuh_dengan Senjata == siti terbunuh_dengan pentungan dan 
+Benda cara_kerja_mirip Senjata == Benda cara_kerja_mirip pentungan bisa jadi kaki_palsu,balok dan sepatu_bola dan 
+X kemungkinan_milik Senjata  == Senjata::kaki palsu dan X::budi 
+---------------------------
+X dicurigai jika 
+motif pembunuhan cemburu dan 
+X orang jender male dan  
+siti selingkuh X == X(joni)
+----------------------------
+X dicurigai jika 
+motif pembunuhan cemburu dan 
+X orang jender female dan 
+X selingkuh Lakilaki dan (X::ina)
+siti selingkuh Lakilaki == joni 
+-------------------------------
+X dicurigai jika 
+uang motif pembunuhan dan 
+X orang pekerjaan pencopet
+Pembunuh adalah pembunuh jika 
+Pembunuh adalah orang dan 
+Terbunuh adalah terbunuh dan 
+Terbunuh tidak sama dengan Pembunuh 
+Pembunuh dicurigai dan 
+Pembunuh ternodai zat 
