@@ -103,21 +103,31 @@ pembunuh(Pembunuh):-					%Pembunuh adalah pembunuh jika
 GOAL							%tujuan akhirnya solusinya
 pembunuh(X).						%X adalah pembunuh 
 
-maka kita lakukan pencocokan dahulu 
-pembunuh(nama)
+maka kita lakukan pencocokan dahulu,yaitu 
+pertama visual prolog akan mencari pencocokan 
+kemudian ditemukan kecocokan pembunuh(nama) dan variabel X diunifikasikan dengan variabel pembunuh 
 dimana nama masuk kedlam predikat orang(nama,umur,jender,pekerjaan) maka pembunuh adalah orang
 kemudian masuk ke aturan yang ada dimana
+Visual Prolog memanggil subgoal yang pertama pada body dari rule tersebut yaitu orang(Pembunuh,_,_,_), dan mencari pencocokan untuk panggilan ini. 
+Ditemukan pencocokan dengan fakta pertama dari klausa relasi orang yang hanya mengambil data nama tanpa memperhatikan fakta lain 
+Pembunuh bisa sapa saja dari orang **predikat** Kemudian Visual Prolog menset titik lacakbalik pada fakta orang(nama,_,_,_). 
+Pembunuh mempunyai nama dan merupakan orang, kemudian membuat panggilan subgoal kedua terbunuh(Terbunuh) dan mencari kecocokan 
+dari fakta terbunuh(siti) dan menset titik lacakbalik pada terbunuh(siti)
+Terbunuh <> Pembunuh, yang menyatakan bahwa yang orang terbunuh bukan pembunuh atau artinya yang terbunuh tidak bunuh diri. 
+telah didapat fakta bahwa variabel Senjata mengikat pentungan, variabel Benda mengikat kaki_palsu 
+dan X=aldi kemungkinan memiliki benda=sepatu_bola kemudian melakukan pencocokan ulang ke titik lacakbalik 
 X kemungkinan_milik sepatu_bola, 
 X orang merupakan pemain_bola == aldi 
-X kemungkinan_miliki gunting jika
+X kemungkinan_miliki gunting jika :->dicari faktanya tidak ada 
 X orang pekerjaan salon == tidak cocok
-X kemungkinan_milik Benda jika 
-X milik Benda 
+X kemungkinan_milik Benda jika :-> Benda= Kaki_palsu , kemudian dicari fakta dan ditemukan fakta yang cocok yaitu milik(budi,kaki_palsu)
+X milik Benda X==Budi Benda=Kaki_palsu
 --------------
 kemudian 
 X dicurigai jika
 siti terbunuh_dengan Senjata == siti terbunuh_dengan pentungan dan 
 Benda cara_kerja_mirip Senjata == Benda cara_kerja_mirip pentungan bisa jadi kaki_palsu,balok dan sepatu_bola dan 
+(Ditemukan fakta pertama dari klausa cara_kerja_mirip(Benda,Senjata) yaitu cara_kerja_mirip(kaki_palsu, pentungan))
 X kemungkinan_milik Senjata  == Senjata::kaki palsu dan X::budi 
 ---------------------------
 X dicurigai jika 
@@ -135,8 +145,11 @@ X dicurigai jika
 uang motif pembunuhan dan 
 X orang pekerjaan pencopet
 Pembunuh adalah pembunuh jika 
-Pembunuh adalah orang dan 
-Terbunuh adalah terbunuh dan 
+Pembunuh adalah orang dan == mengecek siapa saja yang menjadi tersangka. ternyata tersangkanya yaitu:budi,aldi,aldi,joni
+Terbunuh adalah terbunuh dan  ==  mencari predicate terbunuh dan mengecek, ternyata yang terbunuh adalah siti
 Terbunuh tidak sama dengan Pembunuh 
-Pembunuh dicurigai dan 
-Pembunuh ternodai zat 
+Pembunuh dicurigai dan == pembunuh adalah orang yang dicurigailihat pada bagian predicate di curigai. ternyata yang dicurigai adalah budi, joni,aldi.
+Pembunuh ternodai zat == pembunuh(budi, aldi, joni) ternodai zat(darah,lumpur,coklat).
+Terbunuh ternodai zat==terbunuh(siti) ternodai zat(darah) ternyata siti dan budi sama-sama ternodai darah. sehingga dapat di pastikan bahwa budi adalah pembunuh siti
+
+maka didapatkan pembunuh adalah budi 
