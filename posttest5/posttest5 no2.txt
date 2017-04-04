@@ -1,0 +1,95 @@
+Nama	: Oktafira Anandiya 
+Nim	: 1515015123
+Kelas 	: C'2015
+
+soal posttest Pertanyaan/Tugas no1 dan no2
+no 1.
+>> Apa perbedaan data object sederhana dan jamak
+-> Data Objek Sederhana:terbagi menjadi dua yaitu variabel(setiap penulisan variabel harus dengan huruf capital atau dengan sebuah undersore)
+	dan constanta(apapun yang diidentifikasikan sebagai sebuah object yang nilainya bisa bervariasi.
+-> Data Object Jamak : memperlakukan beberapa informasi sebagai sebuah item tunggal, data object dimulai dengan sebuah nama yang biasa disebut functor 
+	yang diikuti oleh tiga argumen. Functor tidak melakukan apa-apa, hanya sebuah nama yang mengidentifikasi sebuah jenis data objek jamak yang didalamnya terdapat argument.
+
+no2.
+a. mencari mahasiswa yang mengikuti mata kuliah "intelejensi buatan" dan menampilkannya
+b. mencari matakuliah yang diajarkan pada semester tersebut dan tampilkan dengan menyertakan nama mahasiswa
+yang mengambil matakuliah tersebut, ruang dan nama dosen yang mengajar. 
+
+>> program 
+DOMAINS
+alamat_asal = alamat(symbol,symbol,symbol)
+nama_mahasiswa,jenis_kelamin,nim = symbol
+nama_matkul,nama_dosen,program_studi,ruang = symbol
+
+PREDICATES
+nondeterm mahasiswa(nama_matkul,nama_mahasiswa,jenis_kelamin,nim,alamat_asal)
+mahasiswa_yang_mengikuti_matakuliah_intelegensi_buatan
+cetak_mahasiswa(nama_mahasiswa,nama_dosen,ruang,alamat_asal)
+nondeterm matakuliah(nama_matkul,nama_dosen,program_studi,ruang)
+matakuliah_yang_diajarkan_pada_semester_tersebut(nama_matkul,nama_mahasiswa,ruang,nama_dosen)
+
+CLAUSES
+mahasiswa_yang_mengikuti_matakuliah_intelegensi_buatan:-
+write("\t*************  MAHASISWA YANG MENGIKUTI MATAKULIAH INTELEGENSI BUATAN  *************"),nl,
+write("*****************************************************************************************************************************"),nl,
+write("\n"),
+write("^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^"),nl,
+write("NIM\t\t Nama Mahasiswa\t\t Nama Dosen\tRuang\t\t Alamat\n"),
+mahasiswa("Intelegensi Buatan",_,_,_,_),
+matakuliah(_,_,_,"1"),
+write("^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^"),nl,
+cetak_mahasiswa(nama_mahasiswa,nama_dosen,ruang,alamat(symbol,symbol,symbol)).
+
+mahasiswa_yang_mengikuti_matakuliah_intelegensi_buatan:-
+write("\n\n Tekan sembarang tombol..."),nl, readchar(_).	
+
+cetak_mahasiswa(nama_mahasiswa,nama_dosen,ruang,alamat(symbol,symbol,symbol)):-
+write("2002001","\t\t ","Sugeng Riyadi","\t\t ","Abdul Kadir","\t ","1","\t ","Jl. Sudirman No. 2","Pontianak","Kalimantan Barat"),nl,
+
+write("2002002","\t\t ","Yulia Sugondo","\t\t "," Abdul Kadir","\t ","1","\t ","Jl. A. Yani No. 10","Klaten","Jawa Tengah"),nl,
+
+write("2002003","\t\t ","Budiman Sejati","\t\t "," Abdul Kadir","\t ","1","\t ","Jl. Slamet Riyadi No. 45","Solo","Jawa Tengah"),nl.
+
+matakuliah_yang_diajarkan_pada_semester_tersebut("Intelegensi Buatan","Sugeng Riyadi","1","Abdul Kadir").
+matakuliah_yang_diajarkan_pada_semester_tersebut("Intelegensi Buatan","Yulia Sugondo","1","Abdul Kadir").
+matakuliah_yang_diajarkan_pada_semester_tersebut("Intelegensi Buatan","Budiman Sejati","1","Abdul Kadir").
+
+matakuliah_yang_diajarkan_pada_semester_tersebut("PDE","Laksamana Sukardi","2","Indra Yatini").
+matakuliah_yang_diajarkan_pada_semester_tersebut("PDE","Rini Suwandi","2","Indra Yatini").
+matakuliah_yang_diajarkan_pada_semester_tersebut("PDE","Kwik Kian Gie","2","Indra Yatini").
+
+matakuliah_yang_diajarkan_pada_semester_tersebut("Teknik Antar Muka","Riri Reza","3","Sigit Anggoro").
+matakuliah_yang_diajarkan_pada_semester_tersebut("Teknik Antar Muka","Rachel Maryam","3","Sigit Anggoro").
+matakuliah_yang_diajarkan_pada_semester_tersebut("Teknik Antar Muka","Garin Nugroho","3","Sigit Anggoro").
+	
+mahasiswa("Intelegensi Buatan","Sugeng Riyadi",lakilaki,"2002001",alamat("Jl. Sudirman No. 2","Pontianak","Kalimantan Barat")).
+mahasiswa("Intelegensi Buatan","Yulia Sugondo",perempuan,"2002002",alamat("Jl. A. Yani No. 10","Klaten","Jawa Tengah")).
+mahasiswa("Intelegensi Buatan","Budiman Sejati",lakilaki,"2002003",alamat("Jl. Slamet Riyadi No. 45","Solo","Jawa Tengah")).
+
+mahasiswa("PDE","Laksamana Sukardi",lakilaki,"2002004",alamat("Jl. MT. Haryono No. 10","Palembang","Sumatera Selatan")).
+mahasiswa("PDE","Rini Suwandi",perempuan,"2002005",alamat("Jl. Letjen Suprapto No. 12","Surabaya","Jawa Timur")).
+mahasiswa("PDE","Kwik Kian Gie",lakilaki,"2002006",alamat("Jl. WR Supratman No. 100","Makasar","Sulawesi Selatan")).
+mahasiswa("Teknik Antar Muka","Riri Reza",lakilaki,"2002007",alamat("Jl. RW Monginsidi No. 30","Purwokerto","Jawa Tengah")).
+mahasiswa("Teknik Antar Muka","Rachel Maryam",perempuan,"2002008",alamat("Jl. Otista No. 112","Bandung","Jawa Barat")).
+mahasiswa("Teknik Antar Muka","Garin Nugroho",lakilaki,"2002009",alamat("Jl. Tanjung Pura No. 101","Jaya Pura","Papua")).
+
+matakuliah("Intelegensi Buatan","Abdul Kadir","Manajemen Informatika","1").
+matakuliah("PDE","Indra Yatini","Teknik Informatika","2").
+matakuliah("Teknik Antar Muka","Sigit Anggoro","Teknik Komputer","3").
+
+a. (goal pertama untuk menampilkan mahasiswa yang mengikuti matakuliah intelegensi buatan)
+GOAL
+mahasiswa_yang_mengikuti_matakuliah_intelegensi_buatan.
+
+penjelasan 
+
+b. (goal untuk mencari matakuliah yg diajarkan pada semester tersebut dan menampilkan dengan menyertakan nama
+mahasiswa yang mengambil mata kuliah tersebut, ruang dan nama dosen yang mengajar)
+GOAL
+matakuliah_yang_diajarkan_pada_semester_tersebut(A,B,C,D).
+
+
+maka penjelasan dari kedua goal diatas adalah;
+->pada section GOAL ini digunakan untuk memanggil data/fakta matakuliah yang diajarkan untuk semester ini
+->dan yang ditampilkan adalah nama mahasiswa, diikuti dengan nama matakuliah, ruang yang digunakan, dan 
+nama dosen yang mengajar. Semua data itu didapatkan dari deklarasi section clause 
